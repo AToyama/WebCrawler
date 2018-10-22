@@ -78,17 +78,6 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-
-.PHONY : install/local/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -99,6 +88,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -144,17 +144,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named web_crawler
+# Target rules for targets named seq_crawler
 
 # Build rule for target.
-web_crawler: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 web_crawler
-.PHONY : web_crawler
+seq_crawler: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 seq_crawler
+.PHONY : seq_crawler
 
 # fast build rule for target.
-web_crawler/fast:
-	$(MAKE) -f CMakeFiles/web_crawler.dir/build.make CMakeFiles/web_crawler.dir/build
-.PHONY : web_crawler/fast
+seq_crawler/fast:
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/build
+.PHONY : seq_crawler/fast
+
+#=============================================================================
+# Target rules for targets named par_crawler
+
+# Build rule for target.
+par_crawler: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 par_crawler
+.PHONY : par_crawler
+
+# fast build rule for target.
+par_crawler/fast:
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/build
+.PHONY : par_crawler/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -512,13 +525,68 @@ put_tests/fast:
 	$(MAKE) -f cpr/test/CMakeFiles/put_tests.dir/build.make cpr/test/CMakeFiles/put_tests.dir/build
 .PHONY : put_tests/fast
 
+main_par.o: main_par.cpp.o
+
+.PHONY : main_par.o
+
+# target to build an object file
+main_par.cpp.o:
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/main_par.cpp.o
+.PHONY : main_par.cpp.o
+
+main_par.i: main_par.cpp.i
+
+.PHONY : main_par.i
+
+# target to preprocess a source file
+main_par.cpp.i:
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/main_par.cpp.i
+.PHONY : main_par.cpp.i
+
+main_par.s: main_par.cpp.s
+
+.PHONY : main_par.s
+
+# target to generate assembly for a file
+main_par.cpp.s:
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/main_par.cpp.s
+.PHONY : main_par.cpp.s
+
+main_seq.o: main_seq.cpp.o
+
+.PHONY : main_seq.o
+
+# target to build an object file
+main_seq.cpp.o:
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/main_seq.cpp.o
+.PHONY : main_seq.cpp.o
+
+main_seq.i: main_seq.cpp.i
+
+.PHONY : main_seq.i
+
+# target to preprocess a source file
+main_seq.cpp.i:
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/main_seq.cpp.i
+.PHONY : main_seq.cpp.i
+
+main_seq.s: main_seq.cpp.s
+
+.PHONY : main_seq.s
+
+# target to generate assembly for a file
+main_seq.cpp.s:
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/main_seq.cpp.s
+.PHONY : main_seq.cpp.s
+
 web_crawler.o: web_crawler.cpp.o
 
 .PHONY : web_crawler.o
 
 # target to build an object file
 web_crawler.cpp.o:
-	$(MAKE) -f CMakeFiles/web_crawler.dir/build.make CMakeFiles/web_crawler.dir/web_crawler.cpp.o
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/web_crawler.cpp.o
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/web_crawler.cpp.o
 .PHONY : web_crawler.cpp.o
 
 web_crawler.i: web_crawler.cpp.i
@@ -527,7 +595,8 @@ web_crawler.i: web_crawler.cpp.i
 
 # target to preprocess a source file
 web_crawler.cpp.i:
-	$(MAKE) -f CMakeFiles/web_crawler.dir/build.make CMakeFiles/web_crawler.dir/web_crawler.cpp.i
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/web_crawler.cpp.i
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/web_crawler.cpp.i
 .PHONY : web_crawler.cpp.i
 
 web_crawler.s: web_crawler.cpp.s
@@ -536,7 +605,8 @@ web_crawler.s: web_crawler.cpp.s
 
 # target to generate assembly for a file
 web_crawler.cpp.s:
-	$(MAKE) -f CMakeFiles/web_crawler.dir/build.make CMakeFiles/web_crawler.dir/web_crawler.cpp.s
+	$(MAKE) -f CMakeFiles/seq_crawler.dir/build.make CMakeFiles/seq_crawler.dir/web_crawler.cpp.s
+	$(MAKE) -f CMakeFiles/par_crawler.dir/build.make CMakeFiles/par_crawler.dir/web_crawler.cpp.s
 .PHONY : web_crawler.cpp.s
 
 # Help Target
@@ -547,9 +617,10 @@ help:
 	@echo "... depend"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... web_crawler"
-	@echo "... install/local"
 	@echo "... rebuild_cache"
+	@echo "... seq_crawler"
+	@echo "... par_crawler"
+	@echo "... install/local"
 	@echo "... edit_cache"
 	@echo "... uninstall"
 	@echo "... pdf"
@@ -578,6 +649,12 @@ help:
 	@echo "... delete_tests"
 	@echo "... proxy_tests"
 	@echo "... put_tests"
+	@echo "... main_par.o"
+	@echo "... main_par.i"
+	@echo "... main_par.s"
+	@echo "... main_seq.o"
+	@echo "... main_seq.i"
+	@echo "... main_seq.s"
 	@echo "... web_crawler.o"
 	@echo "... web_crawler.i"
 	@echo "... web_crawler.s"

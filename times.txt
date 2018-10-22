@@ -1,0 +1,15 @@
+
+EQUIPAMENTO DE DJ SEQUENCIAL
+
+tempo p/ produto: 0.888815s
+numero do produto: 1267
+
+----------//----------//----------//
+
+tempo médio por produto: 0.762588
+tempo total ocioso: 962.03s
+tempo total: 1013.87s
+
+--------------------------------------------
+
+ 

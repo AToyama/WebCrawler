@@ -39,11 +39,13 @@ include_directories(${CPR_INCLUDE_DIRS})
 FIND_PACKAGE( Boost REQUIRED COMPONENTS regex  )
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 
-add_executable(web_crawler web_crawler.cpp)
-#target_link_libraries(web_crawler ${CPR_LIBRARIES})
-target_link_libraries(web_crawler ${CPR_LIBRARIES} ${Boost_LIBRARIES})
-SET_TARGET_PROPERTIES(web_crawler PROPERTIES COMPILE_FLAGS "-lboost_regex")
+add_executable(seq_crawler main_seq.cpp web_crawler.cpp)
+target_link_libraries(seq_crawler ${CPR_LIBRARIES} ${Boost_LIBRARIES})
+SET_TARGET_PROPERTIES(seq_crawler PROPERTIES COMPILE_FLAGS "-lboost_regex")
 
+add_executable(par_crawler main_par.cpp web_crawler.cpp)
+target_link_libraries(par_crawler ${CPR_LIBRARIES} ${Boost_LIBRARIES})
+SET_TARGET_PROPERTIES(par_crawler PROPERTIES COMPILE_FLAGS "-lboost_regex -pthread")
 
 
 	

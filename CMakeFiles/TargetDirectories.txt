@@ -1,8 +1,9 @@
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/install.dir
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/list_install_components.dir
-/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/web_crawler.dir
-/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/install/local.dir
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/rebuild_cache.dir
+/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/seq_crawler.dir
+/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/par_crawler.dir
+/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/install/local.dir
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/CMakeFiles/edit_cache.dir
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/cpr/CMakeFiles/install/local.dir
 /home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/cpr/CMakeFiles/rebuild_cache.dir

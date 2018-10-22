@@ -1,7 +1,26 @@
+#ifndef PRODUTO_H
+#define PRODUTO_H
+
 #include <string>
 #include <boost/regex.hpp>
 
 using namespace std;
+
+string nomeProd(string);
+
+string descricaoProd(string);
+
+string fotoProd(string);
+
+double precoProd(string);
+
+double parceladoProd(string);
+
+int parcelasProd(string);
+
+string categoriaProd(string);
+
+string urlProd(string);
 
 class Produto {
 
@@ -42,3 +61,7 @@ public:
 	}
 
 };
+
+Produto create_prod(string);
+
+#endif

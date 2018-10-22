@@ -9,6 +9,7 @@
 #include <boost/regex.hpp>
 #include <chrono>
 #include "produto.h"
+#include "crawler.h"
 
 using namespace std;
 
@@ -209,89 +210,17 @@ vector<string> getProd(string html){
     return produtos;
 }
 
-int main(int argc, char** argv) {
+Produto create_prod(string html_prod){
 
-	//declarações	
-	vector <string> urls,produtos;
-	double tempo_ocioso = 0;
-	double tempo_produto_total = 0;
-	int n_produto = 0;
-	chrono::time_point<chrono::high_resolution_clock> start, end, start_prod, end_prod, start_oci, end_oci;
-	start = chrono::high_resolution_clock::now();
+	Produto produto;
+	produto.nome = nomeProd(html_prod);
+	produto.descricao = descricaoProd(html_prod);
+	produto.foto = fotoProd(html_prod);
+	produto.preco = precoProd(html_prod);
+	produto.preco_parcelado = parceladoProd(html_prod);
+	produto.preco_num_parcelas = parcelasProd(html_prod);
+	produto.categoria = categoriaProd(html_prod);
+	produto.url = urlProd(html_prod);
 
-	//ṕegar url como entrada
-	string url = "https://www.submarino.com.br/categoria/suplementos-e-vitaminas/fitoterapicos-e-funcionais/oleo-de-coco?ordenacao=topSelling&origem=omega";
-	//string url = argv[1];
-
-	//pegar o html da pagina inicial
-	start_oci = chrono::high_resolution_clock::now();
-
-	auto r = cpr::Get(cpr::Url{url});
-
-	end_oci = chrono::high_resolution_clock::now();
-	chrono::duration<double> func0 = end_oci - start_oci;
-	tempo_ocioso += func0.count();
-
-	string html = r.text;
-	nextPage(html,url);
-	
-	ofstream out("output.txt");
-	out << html;
-	out.close();
-
-	//passa por todas as páginas de produto
-	while(url != "last_page"){
-
-		//pega a lista de produtos da pagina
-		produtos = getProd(html);		
-
-		// gerar o json para cada produto
-		for (int i = 0; i < produtos.size(); ++i)
-		{
-			start_prod = chrono::high_resolution_clock::now();
-
-			auto r = cpr::Get(cpr::Url{produtos[i]});
-
-			end_oci = chrono::high_resolution_clock::now();
-			chrono::duration<double> func1 = end_oci - start_prod;
-			tempo_ocioso += func1.count();
-
-			string html_prod = r.text;
-			Produto produto;
-			produto.nome = nomeProd(html_prod);
-			produto.descricao = descricaoProd(html_prod);
-			produto.foto = fotoProd(html_prod);
-			produto.preco = precoProd(html_prod);
-			produto.preco_parcelado = parceladoProd(html_prod);
-			produto.preco_num_parcelas = parcelasProd(html_prod);
-			produto.categoria = categoriaProd(html_prod);
-			produto.url = urlProd(html_prod);
-			n_produto++;
-			string json = produto.jsonGen();
-
-			cout << json << "\n\n";
-
-			end_prod = chrono::high_resolution_clock::now();
-    		chrono::duration<double> func2 = end_prod - start_prod;
-	    	cout << "tempo p/ produto: " << func2.count() << "s\n";
-	    	tempo_produto_total += func2.count();
-
-			cout << "numero do produto: " <<n_produto << "\n\n";
-			cout << "----------//----------//----------//\n\n";
-		}
-
-		//proxima pagina
-		urls.push_back(url);
-		url = nextPage(html,url);
-		auto r = cpr::Get(cpr::Url{url});
-		html = r.text;
-	}
-
-	cout << "tempo médio por produto: " << tempo_produto_total/n_produto << "\n";
-	cout << "tempo total ocioso: " << tempo_ocioso << "s\n";
-
-	end = chrono::high_resolution_clock::now();
-    chrono::duration<double> func3 = end - start;
-    cout << "tempo total: " << func3.count() << "s\n";
-    
-} 
+	return produto;
+}

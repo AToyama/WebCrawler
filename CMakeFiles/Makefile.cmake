@@ -128,7 +128,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/web_crawler.dir/DependInfo.cmake"
+  "CMakeFiles/seq_crawler.dir/DependInfo.cmake"
+  "CMakeFiles/par_crawler.dir/DependInfo.cmake"
   "cpr/opt/curl/CMakeFiles/uninstall.dir/DependInfo.cmake"
   "cpr/opt/curl/docs/libcurl/CMakeFiles/pdf.dir/DependInfo.cmake"
   "cpr/opt/curl/docs/libcurl/CMakeFiles/html.dir/DependInfo.cmake"

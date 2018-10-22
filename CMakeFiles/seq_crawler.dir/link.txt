@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/seq_crawler.dir/main_seq.cpp.o CMakeFiles/seq_crawler.dir/web_crawler.cpp.o  -o seq_crawler -rdynamic lib/libcpr.a -lboost_regex lib/libcurl.so -ldl -lpthread -lssl -lcrypto -lz -Wl,-rpath,/home/toyama/Documents/8_Semestre/supercomp/work/WebCrawler/lib 
