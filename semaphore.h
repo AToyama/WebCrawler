@@ -6,15 +6,13 @@ using namespace std;
 
 class Semaphore{
     
-	private:
-		int count;
 
     public:
+		int count;
 
 	   	mutex m;
 	    condition_variable cv;
-
-
+	    
 		void init(int n){
 			count = n;
 		}

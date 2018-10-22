@@ -2,6 +2,13 @@
 //CMakeList template
 //https://www.submarino.com.br/categoria/instrumentos-musicais/violao
 
+/*
+- variaveis de ambiente(threads e link)
+- medidas de tempo (usar semaphoro)
+- coleta de dados
+- relatorio <3
+*/
+
 #include <iostream>
 #include <fstream>
 #include <cpr/cpr.h>
@@ -21,7 +28,7 @@ void produceProd(vector<string>& produtos_url,vector<string>& produtos_html,Sema
 	
 	//inicio da contagem de tempo para o produto
 	//start_prod = chrono::high_resolution_clock::now();
-
+	
 	sm_producer.acquire();
 
 	string url = produtos_url.back();
@@ -44,12 +51,16 @@ void produceProd(vector<string>& produtos_url,vector<string>& produtos_html,Sema
 	
 	
 	produtos_html.push_back(html_prod);
+	//cout << "-------------P-------------\n";
+	//cout << "url - " << produtos_url.size() << "\n";
+	//cout << "html - " << produtos_html.size() << "\n";
+
 	sm_pc.release();
-	
+
 	
 	if(produtos_url.empty()){
 			cout << "\n\n\n\n\n ----------------- \n\n\n\n";
-			sm_pc.release();
+			//sm_pc.release(); 	
 			return;
 	}
 	//in
@@ -60,35 +71,28 @@ void produceProd(vector<string>& produtos_url,vector<string>& produtos_html,Sema
 
 }
 
-
-
-	sm_pc.acquire();
-		
-	if(produtos_url.empty() & produtos_html.empty()){	
-		
+void consumeProd(vector<string>& produtos_url,vector<string>& produtos_html,Semaphore& sm_pc,Semaphore& sm_consumer,int url_size,int& count_prod){
+	
+	if(count_prod >= url_size){	
 		return;
 	}		
-	Produto produto;
-	
-	//cout << produtos_url[0] << "\n";
+	sm_pc.acquire();
+
+	Produto produto;	
 
 	sm_consumer.acquire();
 	produto = create_prod(produtos_html.back());
 	produtos_html.pop_back();
-
-
-	//cout << "url - " << produtos_url.size() << "\n";
-	//cout << "html - " << produtos_html.size() << "\n";
-	
-
-	//cout << "html - " << produtos_html.size() << "\n'";
+	count_prod ++;
 
 
 	//retorna um objeto no formato json com informações do produto
+	sm_consumer.release(); 	
 	string json = produto.jsonGen();
 	cout << json << "\n\n";
-	sm_consumer.release(); 	
-
+	//cout << "-------------C-------------\n";
+	//cout << "url - " << produtos_url.size() << "\n";
+	//cout << "html - " << produtos_html.size() << "\n";
 
 	/*
 	//marcação do tempo para cada produto
@@ -105,7 +109,7 @@ void produceProd(vector<string>& produtos_url,vector<string>& produtos_html,Sema
 
 	cout << "----------//----------//----------//\n\n";
 	
-	consumeProd(produtos_url,produtos_html,sm_pc,sm_consumer);
+	consumeProd(produtos_url,produtos_html,sm_pc,sm_consumer,url_size,count_prod);
 
 }
 
@@ -140,7 +144,7 @@ int main(int argc, char** argv) {
 	//html da pagina inicial
 	string html = r.text;
 
-	int n_threads = 2;
+	int n_threads = 8;
 	int n_consumer_threads = n_threads/2;
 	int n_producer_threads = n_threads - n_consumer_threads;
 
@@ -159,10 +163,12 @@ int main(int argc, char** argv) {
 
 		sm_pc.init(0);
 		sm_producer.init(1);
-		sm_producer2.init(1);
+		//ssm_producer2.init(1);
 		sm_consumer.init(1);
 		
-		produtos_url = getProd(html);		
+		produtos_url = getProd(html);
+		int url_size = produtos_url.size() - n_consumer_threads + 1;
+		int count_prod = 0;
 
 		for (int i = 0; i < n_producer_threads; ++i)
 		{
@@ -171,9 +177,8 @@ int main(int argc, char** argv) {
 
 		for (int j = 0; j < n_consumer_threads; ++j)
 		{
-			consumer_threads[j] = thread(consumeProd,ref(produtos_url),ref(produtos_html),ref(sm_pc),ref(sm_consumer));
+			consumer_threads[j] = thread(consumeProd,ref(produtos_url),ref(produtos_html),ref(sm_pc),ref(sm_consumer),ref(url_size),ref(count_prod));
 		}
-		cout << produtos_url.size() << "\n";
 
 		for (int i = 0; i < n_producer_threads; ++i)
 		{
