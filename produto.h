@@ -38,6 +38,24 @@ public:
 
 	string jsonGen(){
 
+		string precof,preco_parceladof,preco_num_parcelasf;
+
+		if (preco == 0){
+			precof = "indisponivel";
+		}
+		else{
+			precof = to_string(preco);
+		}
+
+		if (preco_parcelado == 0){
+			preco_parceladof = "indisponivel";
+			preco_num_parcelasf = "indisponivel";
+		}
+		else{
+			preco_parceladof = to_string(preco_parcelado);
+			preco_num_parcelasf = to_string(preco_num_parcelas);	
+		}
+
 	    stringstream json_stream;
 
 	    string replace = "\n 		";
@@ -48,9 +66,9 @@ public:
 	    			"   " << "\"nome\": \"" 				<< nome <<"\",\n"<<
 					"   " << "\"descricao\": \"" 			<< descricao_fix <<"\",\n"<<
 					"   " << "\"foto\": \"" 				<< foto << "\",\n" << 
-					"   " << "\"preco\": \"" 				<< preco <<"\",\n"<<
-					"   " << "\"preco_parcelado\": \"" 		<< preco_parcelado <<"\",\n"<<
-					"   " << "\"preco_num_parcelas\": \"" 	<< preco_num_parcelas <<"\",\n"<<
+					"   " << "\"preco\": \"" 				<< precof <<"\",\n"<<
+					"   " << "\"preco_parcelado\": \"" 		<< preco_parceladof <<"\",\n"<<
+					"   " << "\"preco_num_parcelas\": \"" 	<< preco_num_parcelasf <<"\",\n"<<
 					"   " << "\"categoria\": \"" 			<< categoria <<"\",\n" <<
 					"   " << "\"url\": \""	 				<< url <<"\"\n"
 			<< "}";
