@@ -45,4 +45,47 @@ Alguns exemplos de links válidos:
 - https://www.submarino.com.br/categoria/eletrodomesticos/geladeira-refrigerador
 - https://www.submarino.com.br/categoria/instrumentos-musicais/violao
 
-..
+Para executar o programa:
+
+**Sequencial:
+
+´´´
+$ ./seq_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
+´´´
+
+**Paralelo:
+
+´´´
+$ ./par_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
+´´´
+
+No paralelo também temos a opção de selecionar o número de threads para executar o programa, por padrão ele é 4, mas podemos atribuir isso a partir de um váriavel de ambiente da seguinte maneira (exemplo para 8  threads) :
+
+´´´
+$ NUM_THREADS=8 ./par_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
+´´´
+## Dados:
+
+Como saída do programa teremos para cada produto um json no seguinte formato:
+
+´´´
+{
+"nome": "",
+"descricao": "",
+"foto": "",
+"preco": 0,
+"preco_parcelado": 0,
+"preco_num_parcelas": 0,
+"categoria": "",
+"url": ""
+}
+´´´
+
+E as seguintes medidas de tempo
+
+- Tempo para download da página e análise de cada produto
+- Tempo médio de todos produtos
+- Tempo total ocioso do programa (tempo para o download de todas as páginas)
+- Tempo de execução total do programa
+
+## Teste de Memória:
