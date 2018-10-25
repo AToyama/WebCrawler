@@ -35,9 +35,9 @@ Isso irá gerar dois executáveis "seq_crawler" e "par_crawler", que são respec
 Para rodar os teste primeiro é necessário de uma URL válida da qual iremos realizar o rastreamento dos produtos. No site da [submarino](https://www.submarino.com.br/) os produtos são divididos em categoria e então em sub-categorias, logo o formato de url que utilizamos segue o seguinte formato:
 
 
-´´´
+```
 - https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]
-´´´
+```
 
 Alguns exemplos de links válidos:
 
@@ -47,23 +47,23 @@ Alguns exemplos de links válidos:
 
 Para executar o programa:
 
-**Sequencial:
+**Sequencial:**
 
-´´´
+```
 $ ./seq_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
-´´´
+```
 
-**Paralelo:
+**Paralelo:**
 
-´´´
+```
 $ ./par_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
-´´´
+```
 
 No paralelo também temos a opção de selecionar o número de threads para executar o programa, por padrão ele é 4, mas podemos atribuir isso a partir de um váriavel de ambiente da seguinte maneira (exemplo para 8  threads) :
 
-´´´
+```
 $ NUM_THREADS=8 ./par_crawler <https://www.submarino.com.br/categoria/[ categoria ]/[ sub-categoria ]>
-´´´
+```
 ## Dados:
 
 Como saída do programa teremos para cada produto um json no seguinte formato:
