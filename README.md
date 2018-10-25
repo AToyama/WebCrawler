@@ -68,7 +68,7 @@ $ NUM_THREADS=8 ./par_crawler <https://www.submarino.com.br/categoria/[ categori
 
 Como saída do programa teremos para cada produto um json no seguinte formato:
 
-´´´
+```
 {
 "nome": "",
 "descricao": "",
@@ -79,7 +79,7 @@ Como saída do programa teremos para cada produto um json no seguinte formato:
 "categoria": "",
 "url": ""
 }
-´´´
+```
 
 E as seguintes medidas de tempo
 
