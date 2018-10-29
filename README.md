@@ -25,8 +25,8 @@ git clone https://github.com/AToyama/WebCrawler
 Esse projeto é compilado utilizando CMake, ao entrar no diretório clonado compile com:
 
 ```
-$CMake .
-$Make
+$ cmake .
+$ make
 ```
 Isso irá gerar dois executáveis "seq_crawler" e "par_crawler", que são respectivamente as versões sequencial e paralela do projeto.
 
