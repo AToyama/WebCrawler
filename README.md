@@ -89,3 +89,21 @@ E as seguintes medidas de tempo
 - Tempo de execução total do programa
 
 ## Teste de Memória:
+
+Para realizar os teste de memória basta colocar o seguinte comando antes do executável
+
+```
+$ mprof run ./[executavel] [URL]
+```
+
+O programa irá rodar normalmente, para gerar o gráfico de consumo de memória basta esperar o programa acabar de rodar e executar:
+
+```
+$ mprof plot
+```
+
+Para a versão paralela do programa deve ser levada em conta que se for utilizar a variável de ambiente NUM_THREADS, ela deve ser declarada antes do comando do teste de memória, da seguinte maneira:
+
+```
+$ NUM_THREADS=[] mprof run ./[executavel] [URL]
+```
